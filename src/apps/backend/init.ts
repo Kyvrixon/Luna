@@ -1,3 +1,4 @@
+import { env } from "bun";
 import { WebServer } from "./structures/WebServer";
 
 const server = new WebServer({
