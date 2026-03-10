@@ -1,0 +1,32 @@
+import { DiscordCommand } from "@kyvrixon/utils";
+import { SlashCommandBuilder } from "discord.js";
+import * as T from "transcriptify";
+import { join } from "node:path";
+import { cwd } from "node:process";
+
+export default new DiscordCommand({
+	data: new SlashCommandBuilder().setName("test").setDescription("idk lol"),
+	async execute(_client, interaction) {
+		if (interaction.user.username !== "kyvrixon") {
+			interaction.reply({
+				content: "no",
+				flags: ["Ephemeral"],
+			});
+			return;
+		}
+
+		if (interaction.channel?.isTextBased()) {
+			// @ts-expect-error TS(2345) Packages 'discord.js' slightly out of date
+			const htmlString = await T.createTranscript(interaction.channel, {
+				allowThemeSwitching: true,
+				filename: `transcript-${interaction.channel.id}.html`,
+				limit: 50,
+				saveAssets: true,
+				theme: "dark",
+				poweredBy: false,
+			});
+
+			await Bun.write(join(cwd(), "files", "yeah.html"), htmlString);
+		}
+	},
+});

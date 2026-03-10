@@ -6,6 +6,9 @@
 		"@types/bun": "1.3.10",
 		"typescript": "5.9.3"
 	},
+	"overrides": {
+		"discord.js": "14.25.1"
+	},
 	"workspaces": [
 		"./src/apps/*",
 		"./src/packages/*"
