@@ -33,7 +33,7 @@ services:
       database:
         condition: service_healthy
     volumes:
-      - filesdata:/app/~files
+      - filesdata:/app/files
 
   bot:
     container_name: bot
@@ -46,4 +46,4 @@ services:
       backend:
         condition: service_started
     volumes:
-      - filesdata:/app/~files
+      - filesdata:/app/files
