@@ -1,5 +1,4 @@
 volumes:
-  filesdata:
   pgdata:
 name: Luna
 
@@ -47,7 +46,7 @@ services:
       database:
         condition: service_healthy
     volumes:
-      - filesdata:/app/files
+      - ./files:/app/files
 
   bot:
     container_name: bot
@@ -61,4 +60,4 @@ services:
       database:
         condition: service_healthy
     volumes:
-      - filesdata:/app/files
+      - ./files:/app/files
