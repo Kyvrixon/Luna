@@ -18,7 +18,9 @@ export default new DiscordCommand({
 		if (interaction.channel?.isTextBased()) {
 			await interaction.reply("working, just wait");
 			// @ts-expect-error TS(2345) Packages 'discord.js' slightly out of date
-			const htmlString = await T.createTranscript(interaction.channel);
+			const htmlString = await T.createTranscript(interaction.channel, {
+				limit: 10
+			});
 			console.log("html stuff done");
 			console.log(htmlString);
 
