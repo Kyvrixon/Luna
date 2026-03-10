@@ -2,6 +2,7 @@ volumes:
   filesdata:
   pgdata:
 
+
 services:
   database:
     container_name: database
@@ -16,7 +17,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
       timeout: 5s
       retries: 5
