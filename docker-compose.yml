@@ -1,13 +1,13 @@
 volumes:
   filesdata:
   pgdata:
-
+name: Luna
 
 services:
   database:
     container_name: database
     image: postgres:18
-    restart: unless-stopped
+    restart: on-failure:3
     expose:
       - "5432"
     environment:
@@ -24,6 +24,7 @@ services:
 
   backend:
     container_name: backend
+    restart: on-failure:3
     build:
       dockerfile: docker/backend.Dockerfile
       context: .
@@ -37,13 +38,12 @@ services:
 
   bot:
     container_name: bot
+    restart: on-failure # ⚠️ watch this
     build:
       dockerfile: docker/bot.Dockerfile
       context: .
     depends_on:
       database:
         condition: service_healthy
-      backend:
-        condition: service_started
     volumes:
       - filesdata:/app/files
