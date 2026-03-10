@@ -1,31 +1,30 @@
-import { LoggerModule, formatSeconds } from "@kyvrixon/utils";
-import { nanoseconds } from "bun";
-import { Elysia, StatusMap, type ElysiaConfig } from "elysia";
+import { LoggerModule } from "@kyvrixon/utils";
+import { Elysia, type ElysiaConfig } from "elysia";
 import { ip } from "elysia-ip";
 import { rateLimit } from "elysia-rate-limit";
-import chalk from "../../../../node_modules/chalk";
+// import chalk from "../../../../node_modules/chalk";
 import { startTimePlugin } from "../core/plugins/startTime";
 
-const statusColour = (s: number) =>
-	s >= 500
-		? chalk.red
-		: s >= 400
-			? chalk.yellow
-			: s >= 300
-				? chalk.cyan
-				: s >= 200
-					? chalk.green
-					: chalk.magenta;
+// const statusColour = (s: number) =>
+// 	s >= 500
+// 		? chalk.red
+// 		: s >= 400
+// 			? chalk.yellow
+// 			: s >= 300
+// 				? chalk.cyan
+// 				: s >= 200
+// 					? chalk.green
+// 					: chalk.magenta;
 
-const methodColour: Record<string, typeof chalk> = {
-	GET: chalk.hex("#22C55E"),
-	POST: chalk.hex("#3B82F6"),
-	PUT: chalk.hex("#F59E0B"),
-	PATCH: chalk.hex("#A855F7"),
-	DELETE: chalk.hex("#EF4444"),
-	OPTIONS: chalk.hex("#64748B"),
-	HEAD: chalk.hex("#06B6D4"),
-};
+// const methodColour: Record<string, typeof chalk> = {
+// 	GET: chalk.hex("#22C55E"),
+// 	POST: chalk.hex("#3B82F6"),
+// 	PUT: chalk.hex("#F59E0B"),
+// 	PATCH: chalk.hex("#A855F7"),
+// 	DELETE: chalk.hex("#EF4444"),
+// 	OPTIONS: chalk.hex("#64748B"),
+// 	HEAD: chalk.hex("#06B6D4"),
+// };
 
 export class WebServer extends Elysia {
 	public port: number;
