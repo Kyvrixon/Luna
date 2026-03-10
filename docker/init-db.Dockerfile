@@ -7,5 +7,6 @@ RUN bun install --production
 
 WORKDIR /app/src/packages/database
 COPY src/packages/database/ .
+COPY .env .
 
 CMD ["bun", "db:init"]
