@@ -16,6 +16,7 @@ export default new DiscordCommand({
 		}
 
 		if (interaction.channel?.isTextBased()) {
+			await interaction.reply("working, just wait");
 			// @ts-expect-error TS(2345) Packages 'discord.js' slightly out of date
 			const htmlString = await T.createTranscript(interaction.channel, {
 				allowThemeSwitching: true,
@@ -26,7 +27,13 @@ export default new DiscordCommand({
 				poweredBy: false,
 			});
 
+			console.log(htmlString.slice(0, 100));
+
+			await interaction.editReply(`${htmlString.slice(0, 100)}`)
+
 			await Bun.write(join(cwd(), "files", "yeah.html"), htmlString);
+
+
 		}
 	},
 });
