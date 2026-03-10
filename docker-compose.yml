@@ -5,9 +5,9 @@ name: Luna
 
 services:
 
-  db-init:
+  init-db:
     build:
-      dockerfile: docker/db-seed.Dockerfile
+      dockerfile: docker/init-db.Dockerfile
       context: .
     depends_on:
       database:
