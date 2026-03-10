@@ -21,12 +21,12 @@ export default new DiscordCommand({
 			const htmlString = await T.createTranscript(interaction.channel, {
 				limit: 10,
 			});
+
 			console.log("html stuff done");
-			console.log(htmlString);
 
 			await interaction.editReply({
 				files: [
-					new AttachmentBuilder(htmlString, {
+					new AttachmentBuilder(Buffer.from(htmlString), {
 						name: "ticket.html",
 					}),
 				],
