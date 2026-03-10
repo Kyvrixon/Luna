@@ -13,6 +13,6 @@
 		"db:migrate": "bun --env-file='../../../.env' prisma migrate",
 		"db:generate": "bun --env-file='../../../.env' prisma generate",
 		"db:seed": "bun --env-file='../../../.env' prisma db seed",
-		"db:init": "bun db:generate && bun db:migrate deploy && db:seed"
+		"db:init": "bun db:generate && bun db:migrate deploy && bun db:seed"
 	}
 }

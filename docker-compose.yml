@@ -6,6 +6,7 @@ name: Luna
 services:
 
   init-db:
+    container_name: init-db
     build:
       dockerfile: docker/init-db.Dockerfile
       context: .
