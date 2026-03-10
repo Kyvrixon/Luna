@@ -1,0 +1,46 @@
+volumes:
+  filesdata:
+  pgdata:
+
+services:
+  bot:
+    container_name: bot
+    build:
+      dockerfile: docker/bot.Dockerfile
+      context: .
+    depends_on:
+      - backend
+      - postgres
+    volumes:
+      - filesdata:/app/~files
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  backend:
+    container_name: backend
+    build:
+      dockerfile: docker/backend.Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - filesdata:/app/~files
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  database:
+    container_name: database
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: luna
+    volumes:
+      - pgdata:/var/lib/postgresql/data

@@ -1,0 +1,5 @@
+model BotCache {
+	id Int @id @unique
+
+	@@schema("bot")
+}

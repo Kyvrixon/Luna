@@ -1,0 +1,6 @@
+model Configs {
+    guildId String @id @unique
+    guild   Guild  @relation(fields: [guildId], references: [guildId], onDelete: Cascade)
+
+    @@schema("guild")
+}

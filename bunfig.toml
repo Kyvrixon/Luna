@@ -1,0 +1,9 @@
+[run]
+bun = true
+shell = "bun"
+silent = false
+
+[install]
+linker = "hoisted"
+exact = true
+lockfile = { save = true }

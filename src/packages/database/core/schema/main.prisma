@@ -1,0 +1,16 @@
+datasource main {
+    schemas      = ["guild", "user", "bot"]
+    provider     = "postgresql"
+    relationMode = "foreignKeys"
+}
+
+generator main {
+    output                 = "../../.generated/prisma"
+    runtime                = "bun"
+    provider               = "prisma-client"
+    moduleFormat           = "esm"
+    compilerBuild          = "fast"
+    previewFeatures        = []
+    importFileExtension    = "ts"
+    generatedFileExtension = "ts"
+}

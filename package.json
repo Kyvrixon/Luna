@@ -1,0 +1,22 @@
+{
+	"name": "@luna/base",
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "2.4.6",
+		"@types/bun": "1.3.10",
+		"typescript": "5.9.3"
+	},
+	"workspaces": [
+		"./src/apps/*",
+		"./src/packages/*"
+	],
+	"scripts": {
+		"start:bot": "bun --smol src/apps/bot/init.ts",
+		"start:backend": "bun --smol src/apps/backend/init.ts",
+		"pretty": "bunx biome format --write .",
+		"deploy": "docker compose up -d --build"
+	},
+	"dependencies": {
+		"@kyvrixon/utils": "github:kyvrixon/utils#v1.0.9"
+	}
+}
