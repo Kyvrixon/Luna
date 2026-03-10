@@ -1,8 +1,5 @@
 import { ActivityType } from "discord.js";
 import { LunaClient } from "./structures/LunaClient";
-import { $ } from "bun";
-
-await $`bun deploy-db`.nothrow();
 
 const bot = new LunaClient({
 	intents: [
