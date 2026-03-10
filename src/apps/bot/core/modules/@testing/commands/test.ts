@@ -18,19 +18,11 @@ export default new DiscordCommand({
 		if (interaction.channel?.isTextBased()) {
 			await interaction.reply("working, just wait");
 			// @ts-expect-error TS(2345) Packages 'discord.js' slightly out of date
-			const htmlString = await T.createTranscript(interaction.channel, {
-				allowThemeSwitching: true,
-				filename: `transcript-${interaction.channel.id}.html`,
-				limit: 50,
-				saveAssets: true,
-				theme: "dark",
-				poweredBy: false,
-			});
+			const htmlString = await T.createTranscript(interaction.channel);
 			console.log("html stuff done");
+			console.log(htmlString);
 
-			console.log(htmlString.slice(0, 100));
-
-			await interaction.editReply(`${htmlString.slice(0, 100)}`)
+			await interaction.editReply("done");
 
 			await Bun.write(join(cwd(), "files", "yeah.html"), htmlString);
 
