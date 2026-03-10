@@ -33,10 +33,6 @@ services:
         condition: service_healthy
     volumes:
       - filesdata:/app/~files
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
 
   bot:
     container_name: bot
@@ -50,7 +46,3 @@ services:
         condition: service_started
     volumes:
       - filesdata:/app/~files
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
