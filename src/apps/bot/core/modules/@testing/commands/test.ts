@@ -26,6 +26,7 @@ export default new DiscordCommand({
 				theme: "dark",
 				poweredBy: false,
 			});
+			console.log("html stuff done");
 
 			console.log(htmlString.slice(0, 100));
 
