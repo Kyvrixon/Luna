@@ -14,7 +14,8 @@
 		"start:bot": "bun --smol src/apps/bot/init.ts",
 		"start:backend": "bun --smol src/apps/backend/init.ts",
 		"pretty": "bunx biome format --write .",
-		"deploy": "docker compose up -d --build"
+		"deploy": "docker compose up -d --build",
+		"deploy-db": "cd src/packages/database && bun prisma migrate deploy"
 	},
 	"dependencies": {
 		"@kyvrixon/utils": "github:kyvrixon/utils#v1.0.9"

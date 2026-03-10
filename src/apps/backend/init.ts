@@ -1,5 +1,7 @@
 import { WebServer } from "./structures/WebServer";
-import { env } from "bun";
+import { $, env } from "bun";
+
+await $`bun deploy-db`;
 
 const server = new WebServer({
 	port: Number(env.PORT),

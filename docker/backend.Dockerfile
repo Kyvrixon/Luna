@@ -6,7 +6,7 @@ COPY . .
 RUN rm -rf /app/src/apps/bot --no-preserve-root
 
 RUN bun install --production --no-verify --no-cache --force
-RUN cd src/packages/database && bun db:generate && bun db:migrate deploy
+RUN cd src/packages/database && bun db:generate
 RUN cd /app
 
 CMD ["bun", "start:backend"]
