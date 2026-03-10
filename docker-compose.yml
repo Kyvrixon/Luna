@@ -4,6 +4,16 @@ volumes:
 name: Luna
 
 services:
+
+  db-init:
+    build:
+      dockerfile: docker/db-seed.Dockerfile
+      context: .
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: no
+
   database:
     container_name: database
     image: postgres:18
@@ -11,13 +21,13 @@ services:
     expose:
       - "5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ky
+      POSTGRES_PASSWORD: ky
       POSTGRES_DB: luna
     volumes:
       - pgdata:/var/lib/postgresql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U ky" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -31,6 +41,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      db-init:
+        condition: service_completed_successfully
       database:
         condition: service_healthy
     volumes:
@@ -38,11 +50,13 @@ services:
 
   bot:
     container_name: bot
-    restart: on-failure # ⚠️ watch this
+    restart: on-failure:3
     build:
       dockerfile: docker/bot.Dockerfile
       context: .
     depends_on:
+      db-init:
+        condition: service_completed_successfully
       database:
         condition: service_healthy
     volumes:
