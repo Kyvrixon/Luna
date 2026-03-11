@@ -39,6 +39,8 @@ export default new DiscordEvent({
 			case InteractionType.MessageComponent: {
 				switch (interaction.componentType) {
 					case ComponentType.Button: {
+						if (interaction.customId.startsWith("~PAGINATION_")) break;
+
 						client.emit("int-button", interaction);
 						break;
 					}
