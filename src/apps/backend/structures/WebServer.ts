@@ -4,6 +4,7 @@ import { ip } from "elysia-ip";
 import { rateLimit } from "elysia-rate-limit";
 // import chalk from "../../../../node_modules/chalk";
 import { startTimePlugin } from "../core/plugins/startTime";
+import { initPrismaClient } from "src/packages/database/structures/PrismaClient";
 
 // const statusColour = (s: number) =>
 // 	s >= 500
@@ -29,6 +30,7 @@ import { startTimePlugin } from "../core/plugins/startTime";
 export class WebServer extends Elysia {
 	public port: number;
 	public log = new LoggerModule();
+	public db = initPrismaClient();
 
 	constructor(
 		config: ElysiaConfig<undefined> & {
@@ -122,7 +124,7 @@ export class WebServer extends Elysia {
 				set.status = 200;
 				set.headers["content-type"] = "text/plain";
 				return "OK";
-			});
+			})
 		return this;
 	}
 
