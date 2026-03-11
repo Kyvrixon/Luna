@@ -1,12 +1,14 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended"],
-	"labels": [],
+	"extends": [ "config:recommended" ],
+	"labels": [ "Dependency Updates" ],
 	"prFooter": "",
+	"reviewers": [ "Kyvrixon" ],
+	"assignees": [ "Kyvrixon" ],
 	"packageRules": [
 		{
-			"schedule": ["at any time"],
-			"matchPackageNames": ["*"]
+			"schedule": [ "at any time" ],
+			"matchPackageNames": [ "*" ]
 		}
 	],
 	"dependencyDashboard": false,
