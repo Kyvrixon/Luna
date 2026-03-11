@@ -22,6 +22,6 @@
 		"deploy-db": "cd src/packages/database && bun db:migrate deploy"
 	},
 	"dependencies": {
-		"@kyvrixon/utils": "github:kyvrixon/utils#v1.0.9"
+		"@kyvrixon/utils": "1.0.10"
 	}
 }

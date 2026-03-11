@@ -5,7 +5,7 @@
     "": {
       "name": "@luna/base",
       "dependencies": {
-        "@kyvrixon/utils": "github:kyvrixon/utils#v1.0.9",
+        "@kyvrixon/utils": "1.0.10",
       },
       "devDependencies": {
         "@biomejs/biome": "2.4.6",
@@ -198,7 +198,7 @@
 
     "@img/sharp-win32-x64": ["@img/sharp-win32-x64@0.34.5", "", { "os": "win32", "cpu": "x64" }, "sha512-+29YMsqY2/9eFEiW93eqWnuLcWcufowXewwSNIT6UwZdUUCrM3oFjMWH/Z6/TMmb4hlFenmfAVbpWeup2jryCw=="],
 
-    "@kyvrixon/utils": ["@kyvrixon/utils@github:kyvrixon/utils#786b10b", { "dependencies": { "chalk": "5.6.2", "discord.js": "14.25.1" } }, "Kyvrixon-utils-786b10b", "sha512-eZjvJYXH26sLICyzqfTFkNhj+IBRY8ct8nfIOmHWNh5PyttlFFchGJeOuKT8oHUjvs0Oi+N3ZTTv8sFspfmv1g=="],
+    "@kyvrixon/utils": ["@kyvrixon/utils@1.0.10", "", { "dependencies": { "chalk": "5.6.2", "discord.js": "14.25.1" } }, "sha512-ouY7lvh90qxj2PQJruvBXCr7mMXwZz96ppdskegvbn627LBPNjH2qiXZCmOnKAlLnofLJ87PgZgE9eodqT5fZg=="],
 
     "@luna/backend": ["@luna/backend@workspace:src/apps/backend"],
 
