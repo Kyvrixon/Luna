@@ -71,7 +71,10 @@ export default new DiscordEvent({
 									" ",
 									`   **Since:** ${formatSeconds(
 										Math.floor((Date.now() - targetAfk.time.getTime()) / 1000),
-										{ format: "short", includeZeroUnits: false },
+										{
+											format: "short",
+											includeZeroUnits: false,
+										},
 									)} ago`,
 									`   **Reason:** ${targetAfk.message}`,
 								].join(),
