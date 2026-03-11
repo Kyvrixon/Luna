@@ -5,7 +5,7 @@ export default defineConfig({
 	schema: "./core/schema",
 	migrations: {
 		path: "./.generated/migrations",
-		seed: "bun core/scripts/seed.ts"
+		seed: "bun core/scripts/seed.ts",
 	},
 	datasource: {
 		url: env.DB_URL,

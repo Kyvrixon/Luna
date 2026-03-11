@@ -1,7 +1,4 @@
-import {
-	createPagination,
-	formatSeconds,
-} from "@kyvrixon/utils";
+import { createPagination, formatSeconds } from "@kyvrixon/utils";
 import {
 	SeparatorBuilder,
 	SeparatorSpacingSize,
@@ -26,7 +23,6 @@ export async function list(
 					},
 				)}`,
 				`   **Reason:** ${entry.message}`,
-				``,
 			].join("\n"),
 		);
 	}
@@ -37,7 +33,7 @@ export async function list(
 			[
 				{
 					type: "display",
-					component: new TextDisplayBuilder().setContent("AFK Users"),
+					component: new TextDisplayBuilder().setContent("## 💤 AFK Users"),
 				},
 				{
 					type: "separator",

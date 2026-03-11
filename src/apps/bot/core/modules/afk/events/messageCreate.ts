@@ -15,18 +15,18 @@ export default new DiscordEvent({
 
 		if (authorAfk && message.channel.isSendable()) {
 			await Promise.all([
-				message
-					.reply({
+				message.channel.sendTyping().then(() =>
+					message.reply({
 						flags: ["IsComponentsV2"],
-						allowedMentions: { parse: [], repliedUser: true },
+						allowedMentions: { parse: [], repliedUser: false },
 						components: [
 							new ContainerBuilder()
 								.setAccentColor(Number(`0x${colours.pastel.pink}`))
 								.addTextDisplayComponents(
 									new TextDisplayBuilder().setContent(
 										[
-											`Welcome back <@${message.author.id}>! I have removed your AFK!`,
-											`You were gone for ${formatSeconds(
+											`Welcome back <@${message.author.id}>!`,
+											`   **Gone for:** ${formatSeconds(
 												Math.floor(
 													(Date.now() - authorAfk.time.getTime()) / 1000,
 												),
@@ -41,14 +41,8 @@ export default new DiscordEvent({
 									),
 								),
 						],
-					})
-					.then((m) => {
-						setTimeout(() => {
-							if (m.deletable) {
-								m.delete().catch(() => null);
-							}
-						}, 10_000);
 					}),
+				),
 				client.db.afk.delete({ where: { userId: message.author.id } }),
 			]);
 		}
@@ -72,10 +66,15 @@ export default new DiscordEvent({
 					components: [
 						new ContainerBuilder().addTextDisplayComponents(
 							new TextDisplayBuilder().setContent(
-								`Hey! <@${targetMember.user.id}> is currently AFK for ${formatSeconds(
-									Math.floor((Date.now() - targetAfk.time.getTime()) / 1000),
-									{ format: "short", includeZeroUnits: false },
-								)}!\n\n**Reason:** ${targetAfk.message}`,
+								[
+									`Hey! <@${targetMember.user.id}> is currently AFK!`,
+									" ",
+									`   **Since:** ${formatSeconds(
+										Math.floor((Date.now() - targetAfk.time.getTime()) / 1000),
+										{ format: "short", includeZeroUnits: false },
+									)} ago`,
+									`   **Reason:** ${targetAfk.message}`,
+								].join(),
 							),
 						),
 					],
