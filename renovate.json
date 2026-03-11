@@ -23,22 +23,3 @@
 		}
 	]
 }
-
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "rangeStrategy": "bump",
-  "labels": ["Dependency Updates"],
-  "reviewers": ["Kyvrixon"],
-  "assignees": ["Kyvrixon"],
-  "dependencyDashboard": false,
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "major","minor","patch",
-        "pin","digest","pinDigest",
-        "bump","replacement","rollback"
-      ],
-      "schedule": ["at any time"]
-    }
-  ]
-}
