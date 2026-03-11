@@ -1,12 +1,13 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:recommended"],
+	"extends": [ "config:recommended" ],
 	"prBodyTemplate": "{{{header}}}\n\n{{{table}}}\n\n{{{notes}}}\n\n{{{changelogs}}}\n\n{{controls}}",
 	"rangeStrategy": "bump",
-	"labels": ["Dependency Updates"],
-	"reviewers": ["Kyvrixon"],
-	"assignees": ["Kyvrixon"],
+	"labels": [ "Dependency Updates" ],
+	"reviewers": [ "Kyvrixon" ],
+	"assignees": [ "Kyvrixon" ],
 	"prFooter": "",
+	"baseBranchPatterns": [ "dev" ],
 	"dependencyDashboard": false,
 	"packageRules": [
 		{
@@ -21,7 +22,7 @@
 				"replacement",
 				"rollback"
 			],
-			"schedule": ["at any time"]
+			"schedule": [ "at any time" ]
 		}
 	]
 }
