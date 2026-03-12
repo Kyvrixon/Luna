@@ -76,7 +76,7 @@ export default new DiscordEvent({
 										},
 									)} ago`,
 									`   **Reason:** ${targetAfk.message}`,
-								].join("\v"),
+								].join("\n"),
 							),
 						),
 					],
