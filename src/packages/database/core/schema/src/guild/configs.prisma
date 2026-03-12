@@ -2,5 +2,9 @@ model Configs {
     guildId String @id @unique
     guild   Guild  @relation(fields: [guildId], references: [guildId], onDelete: Cascade)
 
+	/// Unset to disable
+    starboard_channelId String?
+    starboard_emoji     String  @default("⭐")
+
     @@schema("guild")
 }

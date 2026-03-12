@@ -2,6 +2,9 @@ import { env } from "bun";
 import { initPrismaClient } from "../../structures/PrismaClient";
 import { LoggerModule } from "@kyvrixon/utils";
 
+const guildId = env.SERVER_ID;
+const userId = "981755777754755122";
+
 const log = new LoggerModule();
 
 log.divider("Starting Database Seeding");
@@ -13,13 +16,22 @@ await prisma.$connect();
 log.notif("DB connected");
 
 // Create guild defaults
-const guildId = env.SERVER_ID;
-
 await Promise.allSettled([
-	await prisma.guild
+	prisma.guild
 		.upsert({
 			create: {
 				guildId,
+				configs: {
+					connectOrCreate: {
+						create: {
+							starboard_emoji: "⭐",
+							starboard_channelId: null,
+						},
+						where: {
+							guildId,
+						},
+					},
+				},
 			},
 			where: {
 				guildId,
@@ -28,7 +40,7 @@ await Promise.allSettled([
 				guildId,
 			},
 		})
-		.then(() => log.notif("Done guild upsert")),
+		.then(() => void log.notif("Done guild upsert")),
 
 	// Create bot cache
 	prisma.bot
@@ -43,7 +55,22 @@ await Promise.allSettled([
 				id: 1,
 			},
 		})
-		.then(() => log.notif("Done bot upsert")),
+		.then(() => void log.notif("Done bot upsert")),
+
+	// Create bot cache
+	prisma.user
+		.upsert({
+			create: {
+				userId,
+			},
+			update: {
+				userId,
+			},
+			where: {
+				userId,
+			},
+		})
+		.then(() => void log.notif("Done user upsert")),
 ]);
 
 log.divider("Finished");
