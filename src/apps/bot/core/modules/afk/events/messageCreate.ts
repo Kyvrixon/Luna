@@ -68,7 +68,6 @@ export default new DiscordEvent({
 							new TextDisplayBuilder().setContent(
 								[
 									`Hey! <@${targetMember.user.id}> is currently AFK!`,
-									" ",
 									`   **Since:** ${formatSeconds(
 										Math.floor((Date.now() - targetAfk.time.getTime()) / 1000),
 										{
@@ -77,7 +76,7 @@ export default new DiscordEvent({
 										},
 									)} ago`,
 									`   **Reason:** ${targetAfk.message}`,
-								].join(),
+								].join("\v"),
 							),
 						),
 					],
