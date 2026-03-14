@@ -4,6 +4,6 @@
 	"dependencies": {
 		"elysia": "1.4.27",
 		"elysia-ip": "1.0.10",
-		"elysia-rate-limit": "4.5.0"
+		"elysia-rate-limit": "4.5.1"
 	}
 }
