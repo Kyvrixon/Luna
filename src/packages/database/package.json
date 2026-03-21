@@ -2,7 +2,7 @@
 	"name": "@luna/database",
 	"type": "module",
 	"devDependencies": {
-		"@types/pg": "8.18.0"
+		"@types/pg": "8.20.0"
 	},
 	"dependencies": {
 		"@prisma/adapter-pg": "7.5.0",
