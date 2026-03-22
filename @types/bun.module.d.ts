@@ -6,6 +6,7 @@ declare module "bun" {
 		PORT: string;
 		RESET_COMMANDS: "yes" | "no" | undefined;
 		REGISTER_COMMANDS: "yes" | "no" | undefined;
+		REDIS_URL: string;
 	}
 }
 

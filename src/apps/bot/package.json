@@ -2,7 +2,6 @@
 	"name": "@luna/bot",
 	"type": "module",
 	"dependencies": {
-		"discord.js": "14.25.1",
-		"transcriptify": "1.0.6"
+		"discord.js": "14.25.1"
 	}
 }

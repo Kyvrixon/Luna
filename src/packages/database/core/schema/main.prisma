@@ -1,9 +1,14 @@
+// ########################################
+// #              Datasource              #
+// ########################################
 datasource main {
-    schemas      = ["guild", "user", "bot"]
-    provider     = "postgresql"
+    provider     = "sqlite"
     relationMode = "foreignKeys"
 }
 
+// ########################################
+// #              Generator               #
+// ########################################
 generator main {
     output                 = "../../.generated/prisma"
     runtime                = "bun"
@@ -13,4 +18,14 @@ generator main {
     previewFeatures        = []
     importFileExtension    = "ts"
     generatedFileExtension = "ts"
+}
+
+// ########################################
+// #             Base Models              #
+// ########################################
+/// Discord Member
+model User {
+    userId String @id @unique
+	
+    afk        Afk?
 }

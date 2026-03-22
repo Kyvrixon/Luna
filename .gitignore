@@ -1,10 +1,11 @@
-~assets/*
-~files/*
-!~files/.gitkeep
-!~assets/.gitkeep
+assets/*
+files/*
 src/packages/database/.generated/*
-!src/packages/database/.generated/migrations/
-!src/packages/database/.generated/migrations/**
+!files/.gitkeep
+!assets/.gitkeep
+!src/packages/database/.generated/migrations/*
+.env*
+!.env.example
 
 # dependencies (bun install)
 node_modules

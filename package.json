@@ -2,21 +2,25 @@
 	"name": "@luna/base",
 	"type": "module",
 	"devDependencies": {
-		"@biomejs/biome": "2.4.6",
-		"@types/bun": "1.3.10",
+		"@biomejs/biome": "2.4.8",
+		"@types/bun": "1.3.11",
 		"typescript": "5.9.3"
-	},
-	"overrides": {
-		"discord.js": "14.25.1"
 	},
 	"workspaces": [
 		"./src/apps/*",
 		"./src/packages/*"
 	],
 	"scripts": {
-		"start:bot": "bun --smol src/apps/bot/init.ts",
-		"start:backend": "bun --smol src/apps/backend/init.ts",
-		"pretty": "bunx biome format --write ."
+		"start:bot:prod": "bun --env-file=.env.prod src/apps/bot/init.ts",
+		"start:backend:prod": "bun --env-file=.env.prod src/apps/backend/init.ts",
+		"~": "",
+		"start:bot:dev": "bun --env-file=.env.dev src/apps/bot/init.ts",
+		"start:backend:dev": "bun --env-file=.env.dev src/apps/backend/init.ts",
+		"~~": "",
+		"pretty": "bunx biome format --write .",
+		"~~~": "",
+		"db:dev": "cd src/packages/database && bun db:generate:dev && bun db:migrate:dev deploy",
+		"db:prod": "cd src/packages/database && bun db:generate:prod && bun db:migrate:prod deploy"
 	},
 	"dependencies": {
 		"@kyvrixon/utils": "1.0.10"

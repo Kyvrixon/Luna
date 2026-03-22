@@ -1,3 +1,14 @@
-.env.example
-node_modules/
-bun.lock
+# Not in image
+.env*
+assets/*
+files/*
+src/packages/database/.generated/*
+node_modules/*
+
+###########################################################################
+
+# Override
+!.env.prod
+!files/.gitkeep
+!assets/.gitkeep
+!src/packages/database/.generated/migrations/*

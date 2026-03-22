@@ -1,7 +1,0 @@
-model Guild {
-	guildId String @id @unique
-
-	configs Configs?
-
-	@@schema("guild")
-}

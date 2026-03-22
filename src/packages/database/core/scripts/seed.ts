@@ -4,15 +4,14 @@ import { LoggerModule } from "@kyvrixon/utils";
 
 const guildId = env.SERVER_ID;
 const userId = "981755777754755122";
-
 const log = new LoggerModule();
-
-log.divider("Starting Database Seeding");
-
 const prisma = initPrismaClient();
 
+log.divider("Starting Database Seeding");
 log.notif("Connecting to db");
+
 await prisma.$connect();
+
 log.notif("DB connected");
 
 // Create guild defaults
@@ -21,17 +20,6 @@ await Promise.allSettled([
 		.upsert({
 			create: {
 				guildId,
-				configs: {
-					connectOrCreate: {
-						create: {
-							starboard_emoji: "⭐",
-							starboard_channelId: null,
-						},
-						where: {
-							guildId,
-						},
-					},
-				},
 			},
 			where: {
 				guildId,
