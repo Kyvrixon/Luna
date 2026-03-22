@@ -1,1 +1,1 @@
-If contributing, please request to merge into branch `dev`!  
+If contributing, please request to merge into branch `dev`!   
