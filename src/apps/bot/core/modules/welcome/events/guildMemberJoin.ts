@@ -1,14 +1,11 @@
 import { DiscordEvent } from "@kyvrixon/utils";
-import { config } from "@config";
-
-const c = config.modules.welcomer;
 
 export default new DiscordEvent({
 	type: "client",
 	name: "guildMemberAdd",
 	once: false,
 	async method(client: Luna.Client.Class, member) {
-		const channel = client.mainGuild.channels.cache.get(c.channelId);
+		const channel = client.mainGuild.channels.cache.get("1376439217252732950");
 		if (!channel || !channel.isSendable() || !channel.isTextBased()) return;
 
 		void channel.send({

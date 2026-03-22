@@ -1,5 +1,3 @@
-import { env } from "bun";
-
 export const config = {
 	utils: {
 		shuffle,
@@ -16,22 +14,6 @@ export const config = {
 			purple: "BDB2FF",
 			pink: "FCC6FF",
 			white: "FFFFFC",
-		},
-	},
-	modules: {
-		verify: {
-			channelId: "1484791613728362637",
-			verifiedRole: "1376430036826984448",
-			cooldownSeconds: 10,
-		},
-		welcomer: {
-			channelId: "1376439217252732950",
-		},
-		starboard: {
-			emoji: "⭐",
-			channelId: "1414555434244636714",
-			triggerAmount: env.ISDEV ? 1 : 3,
-			cooldownSeconds: 15,
 		},
 	},
 };

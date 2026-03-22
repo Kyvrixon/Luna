@@ -1,5 +1,6 @@
 import { config } from "@config";
 import { DiscordEvent } from "@kyvrixon/utils";
+import { env } from "bun";
 import {
 	ActionRowBuilder,
 	type Attachment,
@@ -18,8 +19,6 @@ import {
 	ThumbnailBuilder,
 } from "discord.js";
 
-const c = config.modules.starboard;
-
 function addSeparator(base: ContainerBuilder): ContainerBuilder {
 	return base.addSeparatorComponents(
 		new SeparatorBuilder()
@@ -33,12 +32,12 @@ export default new DiscordEvent({
 	once: false,
 	name: "messageReactionAdd",
 	async method(client: Luna.Client.Class, reaction) {
-		if (reaction.emoji.name !== c.emoji) return;
+		if (reaction.emoji.name !== "⭐") return;
 
 		reaction = await reaction.fetch();
-		if (reaction.count !== c.triggerAmount) return;
+		if (reaction.count !== (env.ISDEV ? 1 : 3)) return;
 
-		const ch = client.mainGuild.channels.cache.get(c.channelId);
+		const ch = client.mainGuild.channels.cache.get("1414555434244636714");
 		if (!ch?.isTextBased() || ch.type !== ChannelType.GuildText) return;
 
 		const m = reaction.message;
@@ -52,7 +51,7 @@ export default new DiscordEvent({
 			"1",
 			"NX",
 			"EX",
-			String(c.cooldownSeconds),
+			String(60),
 		]);
 
 		if (ok !== "OK") {
