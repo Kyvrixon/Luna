@@ -1,11 +1,11 @@
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { PrismaClient } from "../.generated/prisma/client";
-import { resolve } from "node:path";
+import { join } from "node:path";
 import { cwd } from "node:process";
 import { LoggerModule } from "@kyvrixon/utils";
 import { env } from "bun";
 
-new LoggerModule().notif(`Using DB file at: ${resolve(cwd(), env.DB_URL)}`);
+new LoggerModule().notif(`Using DB file at: ${join(cwd(), env.DB_URL)}`);
 
 export function initPrismaClient() {
 	const client = new PrismaClient({
