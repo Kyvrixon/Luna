@@ -10,12 +10,10 @@
 	"scripts": {
 		"db:migrate:prod": "bun --env-file='../../../.env.prod' prisma migrate",
 		"db:generate:prod": "bun --env-file='../../../.env.prod' prisma generate",
-		"db:seed:prod": "bun --env-file='../../../.env.prod' prisma db seed",
-		"db:init:prod": "bun db:generate:prod && bun db:migrate:prod deploy && bun db:seed:prod",
+		"db:init:prod": "bun db:generate:prod && bun db:migrate:prod deploy",
 		"~": "",
 		"db:migrate:dev": "bun --env-file='../../../.env.dev' prisma migrate",
 		"db:generate:dev": "bun --env-file='../../../.env.dev' prisma generate",
-		"db:seed:dev": "bun --env-file='../../../.env.dev' prisma db seed",
-		"db:init:dev": "bun db:generate:dev && bun db:migrate:dev deploy && bun db:seed:dev"
+		"db:init:dev": "bun db:generate:dev && bun db:migrate:dev deploy"
 	}
 }
