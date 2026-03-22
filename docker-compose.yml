@@ -63,8 +63,8 @@ services:
     depends_on:
       dragonfly:
         condition: service_healthy
-      database:
-        condition: service_healthy
+      # database:
+      #   condition: service_healthy
     restart: no
 
 # ######################################
