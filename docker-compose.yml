@@ -6,10 +6,9 @@ volumes:
 services:
 
   dragonfly:
+    container_name: dragonfly
     image: ghcr.io/dragonflydb/dragonfly:v1.37.0
     restart: on-failure:3
-    ulimits:
-      memlock: -1
     expose:
       - "6379"
     volumes:
