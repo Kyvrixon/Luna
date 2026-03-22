@@ -8,6 +8,8 @@ src/packages/database/.generated/*
 !.env.example
 !.env
 
+config.ts
+
 # dependencies (bun install)
 node_modules
 
