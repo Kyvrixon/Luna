@@ -28,8 +28,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      init-db:
-        condition: service_completed_successfully
+      # init-db:
+      #   condition: service_completed_successfully
       # database:
       #   condition: service_healthy
       dragonfly:
@@ -44,8 +44,8 @@ services:
       dockerfile: docker/bot.Dockerfile
       context: .
     depends_on:
-      init-db:
-        condition: service_completed_successfully
+      # init-db:
+      #   condition: service_completed_successfully
       # database:
       #   condition: service_healthy
       dragonfly:
@@ -53,7 +53,7 @@ services:
     volumes:
       - ./files:/app/files
       - ./assets:/app/assets
-      
+
 ########################################
 #          No longer seeding           #
 ########################################
