@@ -54,7 +54,7 @@ export async function force(
 		});
 	}
 
-	if (member.roles.cache.has(config.modules.verify.verifiedRole)) {
+	if (member.roles.cache.has("1376430036826984448")) {
 		return void int.reply({
 			flags: [MessageFlags.IsComponentsV2],
 			allowedMentions: {
@@ -74,7 +74,7 @@ export async function force(
 		});
 	}
 
-	await member.roles.add(config.modules.verify.verifiedRole);
+	await member.roles.add("1376430036826984448");
 	
 	// TODO [Modules#quarantine]: remove quarantine role here	
 
