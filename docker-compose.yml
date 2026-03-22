@@ -1,4 +1,4 @@
-name: Bumpify
+name: Luna
 volumes:
   pgdata:
   dragonflydata:
