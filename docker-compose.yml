@@ -53,20 +53,23 @@ services:
     volumes:
       - ./files:/app/files
       - ./assets:/app/assets
+      
+########################################
+#          No longer seeding           #
+########################################
+  # init-db:
+  #   container_name: init-db
+  #   build:
+  #     dockerfile: docker/init-db.Dockerfile
+  #     context: .
+  #   depends_on:
+  #     dragonfly:
+  #       condition: service_healthy
+  #     # database:
+  #     #   condition: service_healthy
+  #   restart: no
 
-  init-db:
-    container_name: init-db
-    build:
-      dockerfile: docker/init-db.Dockerfile
-      context: .
-    depends_on:
-      dragonfly:
-        condition: service_healthy
-      # database:
-      #   condition: service_healthy
-    restart: no
-
-# ######################################
+########################################
 #            Moved to SQLite           #
 ########################################
 #   database:
