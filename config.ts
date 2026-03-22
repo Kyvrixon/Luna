@@ -1,3 +1,5 @@
+import { env } from "bun";
+
 export const config = {
 	utils: {
 		shuffle,
@@ -28,7 +30,7 @@ export const config = {
 		starboard: {
 			emoji: "⭐",
 			channelId: "1414555434244636714",
-			triggerAmount: 1,
+			triggerAmount: env.ISDEV ? 1 : 3,
 			cooldownSeconds: 15,
 		},
 	},

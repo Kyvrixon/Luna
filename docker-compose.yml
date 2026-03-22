@@ -1,6 +1,5 @@
 name: Luna
 volumes:
-  pgdata:
   dragonflydata:
 
 services:
@@ -13,11 +12,6 @@ services:
       - "6379"
     volumes:
       - dragonflydata:/data
-    healthcheck:
-      test: ["CMD-SHELL", "nc -z localhost 6379 || exit 1"]
-      interval: 15s
-      timeout: 5s
-      retries: 5
 
   backend:
     container_name: backend
@@ -28,8 +22,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      # init-db:
-      #   condition: service_completed_successfully
+      init-db:
+        condition: service_completed_successfully
       # database:
       #   condition: service_healthy
       dragonfly:
@@ -44,8 +38,8 @@ services:
       dockerfile: docker/bot.Dockerfile
       context: .
     depends_on:
-      # init-db:
-      #   condition: service_completed_successfully
+      init-db:
+        condition: service_completed_successfully
       # database:
       #   condition: service_healthy
       dragonfly:
@@ -53,39 +47,9 @@ services:
     volumes:
       - ./files:/app/files
       - ./assets:/app/assets
-
-########################################
-#          No longer seeding           #
-########################################
-  # init-db:
-  #   container_name: init-db
-  #   build:
-  #     dockerfile: docker/init-db.Dockerfile
-  #     context: .
-  #   depends_on:
-  #     dragonfly:
-  #       condition: service_healthy
-  #     # database:
-  #     #   condition: service_healthy
-  #   restart: no
-
-########################################
-#            Moved to SQLite           #
-########################################
-#   database:
-#     container_name: database
-#     image: postgres:18
-#     restart: on-failure:3
-#     expose:
-#       - "5432"
-#     environment:
-#       POSTGRES_USER: ky
-#       POSTGRES_PASSWORD: ky
-#       POSTGRES_DB: luna
-#     volumes:
-#       - pgdata:/var/lib/postgresql
-#     healthcheck:
-#       test: [ "CMD-SHELL", "pg_isready -U ky -d luna" ]
-#       interval: 10s
-#       timeout: 5s
-#       retries: 5
+  init-db:
+    container_name: init-db
+    build:
+      dockerfile: docker/init-db.Dockerfile
+      context: .
+    restart: no
