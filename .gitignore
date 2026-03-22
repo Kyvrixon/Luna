@@ -9,6 +9,7 @@ src/packages/database/.generated/*
 !.env
 
 config.ts
+bun.lock
 
 # dependencies (bun install)
 node_modules
