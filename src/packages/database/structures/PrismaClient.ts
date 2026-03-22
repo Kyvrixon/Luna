@@ -5,7 +5,7 @@ import { cwd } from "node:process";
 import { LoggerModule } from "@kyvrixon/utils";
 import { env } from "bun";
 
-new LoggerModule().notif(`Using DB file at: ${join(cwd(), env.DB_URL)}`);
+new LoggerModule().notif(`Using DB file at: ${join(cwd() ?? "<no_cwd>", env.DB_URL)}`);
 
 export function initPrismaClient() {
 	const client = new PrismaClient({
