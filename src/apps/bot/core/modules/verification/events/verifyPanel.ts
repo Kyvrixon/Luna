@@ -39,7 +39,7 @@ export default new DiscordEvent({
 			"1",
 			"NX",
 			"EX",
-			String(config.modules.verify.cooldownSeconds),
+			String(10),
 		]);
 
 		if (ok !== "OK") {
@@ -157,7 +157,7 @@ export default new DiscordEvent({
 			const member = await client.mainGuild.members.fetch(interaction.user.id);
 
 			// TODO Error handling needed
-			await member.roles.add(config.modules.verify.verifiedRole);
+			await member.roles.add("1376430036826984448");
 			await btnInt.deferUpdate();
 
 			void interaction.editReply({

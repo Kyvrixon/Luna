@@ -15,9 +15,7 @@ export async function send_panel(
 	client: Luna.Client.Class,
 	int: ChatInputCommandInteraction,
 ): Promise<void> {
-	const channel = client.mainGuild.channels.cache.get(
-		config.modules.verify.channelId,
-	);
+	const channel = client.mainGuild.channels.cache.get("1484791613728362637");
 
 	if (!channel || !channel.isSendable() || !channel.isTextBased()) return;
 
