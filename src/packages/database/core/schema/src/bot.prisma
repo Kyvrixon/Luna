@@ -1,5 +1,0 @@
-model Bot {
-	id Int @id @unique
-
-	@@schema("bot")
-}

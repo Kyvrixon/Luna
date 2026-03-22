@@ -1,12 +1,12 @@
 import { DiscordEvent, formatSeconds } from "@kyvrixon/utils";
 import { ContainerBuilder, TextDisplayBuilder } from "discord.js";
-import { colours } from "src/apps/bot/structures/constants";
+import { config } from "@config";
 
 export default new DiscordEvent({
 	type: "client",
 	name: "messageCreate",
 	once: false,
-	async method(client: Luna.Client.Class<true>, message) {
+	async method(client: Luna.Client.Class, message) {
 		if (!message.guild || message.author.bot || message.webhookId) return;
 
 		const authorAfk = await client.db.afk.findFirst({
@@ -21,7 +21,9 @@ export default new DiscordEvent({
 						allowedMentions: { parse: [], repliedUser: false },
 						components: [
 							new ContainerBuilder()
-								.setAccentColor(Number(`0x${colours.pastel.pink}`))
+								.setAccentColor(
+									config.colours.parse(config.colours.pastel.purple, "tuple"),
+								)
 								.addTextDisplayComponents(
 									new TextDisplayBuilder().setContent(
 										[

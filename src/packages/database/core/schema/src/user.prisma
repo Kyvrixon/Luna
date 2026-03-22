@@ -1,7 +1,0 @@
-model User {
-    userId String @id @unique
-
-    afk Afk?
-
-    @@schema("user")
-}

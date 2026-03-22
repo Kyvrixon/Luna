@@ -1,17 +1,18 @@
 import { DiscordCommand, DiscordEvent, LoggerModule } from "@kyvrixon/utils";
-import { env } from "bun";
-import { Client as DJSClient, REST, Routes } from "discord.js";
+import { env, RedisClient } from "bun";
+import { Client, Routes } from "discord.js";
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { initPrismaClient } from "src/packages/database/structures/PrismaClient";
 
-export class LunaClient<
-	Ready extends boolean = boolean,
-> extends DJSClient<Ready> {
+export class LunaClient extends Client<true> {
 	public commands = new Map<string, DiscordCommand<this>>();
 	public log = new LoggerModule();
 	public db = initPrismaClient();
+	public r = new RedisClient(env.REDIS_URL, {
+		autoReconnect: true,
+	});
 	private flags = {
 		inited: false,
 		registered: false,
@@ -29,127 +30,122 @@ export class LunaClient<
 	}
 
 	async init() {
-		if (!this.flags.inited) {
-			this.flags.inited = true;
+		if (this.flags.inited) return;
+		this.flags.inited = true;
 
-			await this.db.$connect();
+		await Promise.allSettled([
+			this.db.$connect().then(() => void this.log.notif("Database connected")),
+			this.r
+				.connect()
+				.then(() => void this.log.notif("Cache client connected")),
+		]);
 
-			this.log.notif("Starting client");
-			await this.loadModules();
+		this.log.notif("Starting client");
+		await this.loadModules();
 
-			this.log.notif("Logging in ...");
-			await this.login(env.BOT_TOKEN);
-		}
+		this.log.notif("Logging in ...");
+		await this.login(env.BOT_TOKEN);
 	}
 
 	async loadModules() {
-		if (!this.flags.loaded) {
-			const root = join(cwd(), "src", "apps", "bot", "core", "modules");
-			for await (const _module of (
-				await readdir(root, {
-					recursive: false,
-					withFileTypes: true,
-				})
-			)
-				.filter((x) => x.isDirectory())
-				.map((x) => x.name)) {
-				for await (const filepath of new Bun.Glob("**/**.{ts}").scan({
-					cwd: join(root, _module),
-					absolute: true,
-					throwErrorOnBrokenSymlink: true,
-					dot: false,
-					onlyFiles: true,
-					followSymlinks: true,
-				})) {
-					const importedModule = (await import(filepath)).default as unknown;
-					if (!importedModule) {
-						continue;
+		if (this.flags.loaded) return;
+		this.flags.loaded = true;
+
+		const root = join(cwd(), "src", "apps", "bot", "core", "modules");
+		for await (const _module of (
+			await readdir(root, {
+				recursive: false,
+				withFileTypes: true,
+			})
+		)
+			.filter((x) => x.isDirectory())
+			.map((x) => x.name)) {
+			for await (const filepath of new Bun.Glob("**/**.{ts}").scan({
+				cwd: join(root, _module),
+				absolute: true,
+				throwErrorOnBrokenSymlink: true,
+				dot: false,
+				onlyFiles: true,
+				followSymlinks: true,
+			})) {
+				const importedModule = (await import(filepath)).default as unknown;
+				if (!importedModule) {
+					continue;
+				}
+
+				switch (true) {
+					case importedModule instanceof DiscordCommand: {
+						if (this.commands.has(importedModule.data.name)) {
+							this.log.alert(
+								`Skipping duplicate command: '${importedModule.data.name}' at path '${filepath}'`,
+							);
+							continue;
+						}
+
+						this.commands.set(importedModule.data.name, importedModule);
+						break;
 					}
 
-					switch (true) {
-						case importedModule instanceof DiscordCommand: {
-							if (this.commands.has(importedModule.data.name)) {
-								this.log.alert(
-									`Skipping duplicate command: '${importedModule.data.name}' at path '${filepath}'`,
-								);
-								continue;
+					case importedModule instanceof DiscordEvent: {
+						const e = importedModule;
+						const handler = (...args: unknown[]) => e.method(this, ...args);
+
+						switch (e.type) {
+							case "rest": {
+								this.rest[e.once ? "once" : "on"](e.name, handler);
+								break;
 							}
-
-							this.commands.set(importedModule.data.name, importedModule);
-							break;
-						}
-
-						case importedModule instanceof DiscordEvent: {
-							const e = importedModule;
-
-							if (e.type === "rest") {
-								this.rest[e.once ? "once" : "on"](
-									e.name,
-									// @ts-expect-error ts(7019) Untyped
-									(...args) => e.method(this, ...args),
-								);
-							} else {
-								this[e.once ? "once" : "on"](e.name, (...args) =>
-									e.method(this, ...args),
-								);
+							case "client": {
+								this[e.once ? "once" : "on"](e.name, handler);
+								break;
 							}
-
-							break;
+							case "custom": {
+								this[e.once ? "once" : "on"](e.name, handler);
+								break;
+							}
 						}
+						break;
 					}
 				}
 			}
 		}
-		this.flags.loaded = true;
 	}
 
 	async registerCommands() {
-		if (!this.flags.registered) {
-			const R = new REST().setToken(env.BOT_TOKEN);
-			if (env.RESET_COMMANDS && env.RESET_COMMANDS === "yes") {
-				this.log.alert("'RESET_COMMANDS' flag is enabled!");
-				this.log.notif("Clearing commands ...");
-				await R.put(
-					Routes.applicationGuildCommands(
-						(this.user as Luna.Client.Class<true>["user"]).id,
-						env.SERVER_ID,
-					),
-					{
-						body: [],
-					},
-				);
-				await R.put(
-					Routes.applicationCommands(
-						(this.user as Luna.Client.Class<true>["user"]).id,
-					),
-					{
-						body: [],
-					},
-				);
-				this.log.notif(
-					"Commands cleared! Remember to disable 'RESET_COMMANDS' env flag!",
-				);
-			}
+		if (this.flags.registered) return;
+		this.flags.registered = true;
+		const R = this.rest;
 
-			if (
-				env.REGISTER_COMMANDS &&
-				env.REGISTER_COMMANDS === "yes" &&
-				this.commands.size > 0
-			) {
-				await R.put(
-					Routes.applicationGuildCommands(
-						(this.user as Luna.Client.Class<true>["user"]).id,
-						env.SERVER_ID,
-					),
-					{
-						body: [...this.commands.values().map((x) => x.data.toJSON())],
-					},
-				);
+		if (env.RESET_COMMANDS && env.RESET_COMMANDS === "yes") {
+			this.log.alert("'RESET_COMMANDS' flag is enabled!");
+			this.log.notif("Clearing commands ...");
+			await R.put(
+				Routes.applicationGuildCommands(this.user.id, env.SERVER_ID),
+				{
+					body: [],
+				},
+			);
+			await R.put(Routes.applicationCommands(this.user.id), {
+				body: [],
+			});
+			this.log.notif(
+				"Commands cleared! Remember to disable 'RESET_COMMANDS' env flag!",
+			);
+		}
 
-				this.log.notif("Commands registered");
-			}
+		if (
+			env.REGISTER_COMMANDS &&
+			env.REGISTER_COMMANDS === "yes" &&
+			this.commands.size > 0
+		) {
+			await R.put(
+				Routes.applicationGuildCommands(this.user.id, env.SERVER_ID),
+				{
+					body: [...this.commands.values().map((x) => x.data.toJSON())],
+				},
+			);
 
-			this.flags.registered = true;
+			this.log.notif("Commands registered");
 		}
 	}
 }

@@ -7,7 +7,7 @@ import {
 } from "discord.js";
 
 export async function list(
-	client: Luna.Client.Class<true>,
+	client: Luna.Client.Class,
 	int: ChatInputCommandInteraction,
 ): Promise<void> {
 	const afkData = await client.db.afk.findMany();

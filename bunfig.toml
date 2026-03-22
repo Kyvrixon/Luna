@@ -7,3 +7,4 @@ silent = false
 linker = "hoisted"
 exact = true
 lockfile = { save = true }
+saveTextLockfile = true

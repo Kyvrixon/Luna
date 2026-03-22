@@ -1,18 +1,21 @@
 {
 	"name": "@luna/database",
 	"type": "module",
-	"devDependencies": {
-		"@types/pg": "8.18.0"
-	},
+	"devDependencies": {},
 	"dependencies": {
-		"@prisma/adapter-pg": "7.5.0",
+		"@prisma/adapter-libsql": "7.5.0",
 		"@prisma/client": "7.5.0",
 		"prisma": "7.5.0"
 	},
 	"scripts": {
-		"db:migrate": "bun --env-file='../../../.env' prisma migrate",
-		"db:generate": "bun --env-file='../../../.env' prisma generate",
-		"db:seed": "bun --env-file='../../../.env' prisma db seed",
-		"db:init": "bun db:generate && bun db:migrate deploy && bun db:seed"
+		"db:migrate:prod": "bun --env-file='../../../.env.prod' prisma migrate",
+		"db:generate:prod": "bun --env-file='../../../.env.prod' prisma generate",
+		"db:seed:prod": "bun --env-file='../../../.env.prod' prisma db seed",
+		"db:init:prod": "bun db:generate:prod && bun db:migrate:prod deploy && bun db:seed:prod",
+		"~": "",
+		"db:migrate:dev": "bun --env-file='../../../.env.dev' prisma migrate",
+		"db:generate:dev": "bun --env-file='../../../.env.dev' prisma generate",
+		"db:seed:dev": "bun --env-file='../../../.env.dev' prisma db seed",
+		"db:init:dev": "bun db:generate:dev && bun db:migrate:dev deploy && bun db:seed:dev"
 	}
 }

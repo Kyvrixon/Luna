@@ -1,28 +1,34 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: ~ */
 import type {
 	ButtonInteraction,
 	ChannelSelectMenuInteraction,
-	RoleSelectMenuInteraction,
-	UserSelectMenuInteraction,
-	StringSelectMenuInteraction,
 	MentionableSelectMenuInteraction,
 	ModalSubmitInteraction,
+	RoleSelectMenuInteraction,
+	StringSelectMenuInteraction,
+	UserSelectMenuInteraction,
 } from "discord.js";
-import type { DiscordEventCustomType } from "@kyvrixon/utils";
 
-declare module "@kyvrixon/utils" {
-	interface DiscordEventCustomType {
-		"int-button": [interaction: ButtonInteraction];
-		"int-channelselect": [interaction: ChannelSelectMenuInteraction];
-		"int-roleselect": [interaction: RoleSelectMenuInteraction];
-		"int-userselect": [interaction: UserSelectMenuInteraction];
-		"int-stringselect": [interaction: StringSelectMenuInteraction];
-		"int-mentionableselect": [interaction: MentionableSelectMenuInteraction];
-		"int-modalsubmit": [interaction: ModalSubmitInteraction];
-	}
+// ===========================================================
+
+interface CustomIntEventsMapping {
+	// Interactions
+	"int-button": [interaction: ButtonInteraction];
+	"int-modalsubmit": [interaction: ModalSubmitInteraction];
+	"int-roleselect": [interaction: RoleSelectMenuInteraction];
+	"int-userselect": [interaction: UserSelectMenuInteraction];
+	"int-stringselect": [interaction: StringSelectMenuInteraction];
+	"int-channelselect": [interaction: ChannelSelectMenuInteraction];
+	"int-mentionableselect": [interaction: MentionableSelectMenuInteraction];
+
+	// Misc discord events
+	raw: [payload: any];
 }
 
-declare module "discord.js" {
-	interface ClientEvents extends DiscordEventCustomType {}
+type MergedCustomEventsMapping = CustomIntEventsMapping;
+
+declare module "@kyvrixon/utils" {
+	interface DiscordEventCustomType extends MergedCustomEventsMapping {}
 }
 
 export default void null;

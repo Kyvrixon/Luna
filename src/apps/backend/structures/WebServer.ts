@@ -124,14 +124,15 @@ export class WebServer extends Elysia {
 				set.status = 200;
 				set.headers["content-type"] = "text/plain";
 				return "OK";
-			})
+			});
 		return this;
 	}
 
-	start() {
-		void this.listen(
+	start(): this {
+		this.listen(
 			this.port,
 			() => void this.log.notif(`Webserver online on port ${this.port}`),
 		);
+		return this;
 	}
 }

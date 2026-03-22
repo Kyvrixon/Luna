@@ -1,15 +1,16 @@
 import {
 	ContainerBuilder,
+	MessageFlags,
 	TextDisplayBuilder,
 	type ChatInputCommandInteraction,
 } from "discord.js";
-import { colours } from "src/apps/bot/structures/constants";
+import { config } from "@config";
 
 export async function set(
-	client: Luna.Client.Class<true>,
+	client: Luna.Client.Class,
 	int: ChatInputCommandInteraction,
 ): Promise<void> {
-	await int.deferReply({ flags: ["Ephemeral"], withResponse: true });
+	await int.deferReply({ flags: [MessageFlags.Ephemeral], withResponse: true });
 
 	const afkMessage = int.options.getString("message") ?? "No reason given";
 	const userId = int.user.id;
@@ -37,10 +38,12 @@ export async function set(
 	});
 
 	int.editReply({
-		flags: ["IsComponentsV2"],
+		flags: [MessageFlags.IsComponentsV2],
 		components: [
 			new ContainerBuilder()
-				.setAccentColor(Number(`0x${colours.pastel.green}`))
+				.setAccentColor(
+					config.colours.parse(config.colours.pastel.green, "tuple"),
+				)
 				.addTextDisplayComponents(
 					new TextDisplayBuilder().setContent(
 						`\`✅\` | AFK message set to **${afkMessage}**`,
