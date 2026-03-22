@@ -7,6 +7,7 @@ declare module "bun" {
 		RESET_COMMANDS: "yes" | "no" | undefined;
 		REGISTER_COMMANDS: "yes" | "no" | undefined;
 		REDIS_URL: string;
+		ISDEV: "1" | undefined;
 	}
 }
 
