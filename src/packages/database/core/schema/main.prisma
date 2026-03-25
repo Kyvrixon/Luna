@@ -10,7 +10,7 @@ datasource main {
 // #              Generator               #
 // ########################################
 generator main {
-    output                 = "../../.generated/prisma"
+    output                 = "../../.generated"
     runtime                = "bun"
     provider               = "prisma-client"
     moduleFormat           = "esm"

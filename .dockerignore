@@ -20,4 +20,3 @@ files/**
 !files/.gitkeep
 # allow everything inside files (needed for runtime)
 !files/**
-!src/packages/database/.generated/migrations/**

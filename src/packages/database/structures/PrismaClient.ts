@@ -1,5 +1,5 @@
 import { PrismaLibSql } from "@prisma/adapter-libsql";
-import { PrismaClient } from "../.generated/prisma/client";
+import { PrismaClient } from "../.generated/client";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { LoggerModule } from "@kyvrixon/utils";
