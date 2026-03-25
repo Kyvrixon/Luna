@@ -4,7 +4,7 @@ export default new DiscordEvent({
 	type: "client",
 	name: "guildMemberAdd",
 	once: false,
-	async method(client: Luna.Client.Class, member) {
+	async method(client: Luna.Client.Bot, member) {
 		const channel = client.mainGuild.channels.cache.get("1376439217252732950");
 		if (!channel || !channel.isSendable() || !channel.isTextBased()) return;
 

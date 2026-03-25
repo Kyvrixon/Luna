@@ -33,7 +33,7 @@ export default new DiscordCommand({
 						.setRequired(true),
 				),
 		),
-	async execute(client: Luna.Client.Class, interaction) {
+	async execute(client: Luna.Client.Bot, interaction) {
 		switch (interaction.options.getSubcommand()) {
 			case "set": {
 				return void set(client, interaction);

@@ -5,7 +5,7 @@ import {
 	InteractionType,
 } from "discord.js";
 
-function getCmd(name: string, client: Luna.Client.Class) {
+function getCmd(name: string, client: Luna.Client.Bot) {
 	return client.commands.get(name);
 }
 
@@ -13,7 +13,7 @@ export default new DiscordEvent({
 	type: "client",
 	name: "interactionCreate",
 	once: false,
-	async method(client: Luna.Client.Class, interaction) {
+	async method(client: Luna.Client.Bot, interaction) {
 		switch (interaction.type) {
 			case InteractionType.ApplicationCommand: {
 				switch (interaction.commandType) {

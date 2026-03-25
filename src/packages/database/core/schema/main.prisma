@@ -26,6 +26,7 @@ generator main {
 /// Discord Member
 model User {
     userId String @id @unique
-	
-    afk        Afk?
+
+    afk            Afk?
+    ai_chathistory AI_ChatHistory[]
 }

@@ -31,7 +31,7 @@ export default new DiscordEvent({
 	type: "client",
 	once: false,
 	name: "messageReactionAdd",
-	async method(client: Luna.Client.Class, reaction) {
+	async method(client: Luna.Client.Bot, reaction) {
 		if (reaction.emoji.name !== "⭐") return;
 
 		reaction = await reaction.fetch();

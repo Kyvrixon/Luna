@@ -13,12 +13,12 @@ export default new DiscordEvent({
 	type: "client",
 	name: "messageCreate",
 	once: false,
-	async method(_client: Luna.Client.Class, message) {
+	async method(_client: Luna.Client.Bot, message) {
 		if (!message.guild || message.type !== MessageType.GuildBoost) return;
 		const notifChannel = message.guild.channels.cache.get(
 			"1376439217252732950",
 		);
-		
+
 		if (
 			!notifChannel ||
 			!notifChannel.isSendable() ||

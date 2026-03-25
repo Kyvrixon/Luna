@@ -1,0 +1,7 @@
+{
+	"name": "@luna/ai",
+	"type": "module",
+	"dependencies": {
+		"@anthropic-ai/sdk": "0.80.0"
+	}
+}

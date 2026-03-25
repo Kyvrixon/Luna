@@ -1,0 +1,16 @@
+enum ChatType {
+    user
+    assistant
+}
+
+/// One row per transcript line for a Discord user (who spoke is `type`).
+model AI_ChatHistory {
+    id        String   @id @default(cuid())
+    userId    String
+    user      User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+    message   String
+    type      ChatType
+    createdAt DateTime @default(now())
+
+    @@index([userId, createdAt])
+}

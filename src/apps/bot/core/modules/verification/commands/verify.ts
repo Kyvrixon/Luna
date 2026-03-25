@@ -2,7 +2,7 @@ import { DiscordCommand } from "@kyvrixon/utils";
 import {
 	SlashCommandBuilder,
 	SlashCommandSubcommandBuilder,
-	SlashCommandUserOption
+	SlashCommandUserOption,
 } from "discord.js";
 import { force } from "./src/force";
 import { send_panel } from "./src/send_panel";
@@ -27,7 +27,7 @@ export default new DiscordCommand({
 						.setDescription("The user to verify"),
 				),
 		),
-	async execute(client: Luna.Client.Class, interaction) {
+	async execute(client: Luna.Client.Bot, interaction) {
 		switch (interaction.options.getSubcommand()) {
 			case "force": {
 				force(client, interaction);

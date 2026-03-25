@@ -4,9 +4,13 @@ import { Client, Routes } from "discord.js";
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { initPrismaClient } from "src/packages/database/structures/PrismaClient";
+import { AIClient } from "../../../packages/ai/structures/AIClient";
+import { initPrismaClient } from "../../../packages/database/structures/PrismaClient";
 
 export class LunaClient extends Client<true> {
+	public ai = new AIClient({
+		apiKey: env.AI_API_KEY,
+	});
 	public commands = new Map<string, DiscordCommand<this>>();
 	public log = new LoggerModule();
 	public db = initPrismaClient();
@@ -29,11 +33,17 @@ export class LunaClient extends Client<true> {
 		return g;
 	}
 
+	async kill() {
+		this.log.alert("Killing client ...");
+		await Promise.all([this.r.close(), this.db.$disconnect(), this.destroy()]);
+		this.log.alert("Client killed");
+	}
+
 	async init() {
 		if (this.flags.inited) return;
 		this.flags.inited = true;
 
-		await Promise.allSettled([
+		await Promise.all([
 			this.db.$connect().then(() => void this.log.notif("Database connected")),
 			this.r
 				.connect()

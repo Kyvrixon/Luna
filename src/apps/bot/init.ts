@@ -1,3 +1,5 @@
+// Init config
+import "@config";
 import { ActivityType, GatewayIntentBits, Partials } from "discord.js";
 import { LunaClient } from "./structures/LunaClient";
 
@@ -7,16 +9,17 @@ const {
 	MessageContent,
 	GuildMessageReactions,
 	GuildMembers,
+	DirectMessages,
 } = GatewayIntentBits;
 
 process.once("SIGTERM", kill);
 process.once("SIGINT", kill);
-process.on("uncaughtException", (error, _origin) => bot.log.error(error));
-process.on("unhandledRejection", (error, _origin) => bot.log.error(error));
+process.on("uncaughtException", (error, _origin) => console.error(error));
+process.on("unhandledRejection", (error, _origin) => console.error(error));
 
 async function kill(signal: string) {
-	bot.log.alert(`[OS]: Received signal ${signal}, shutting down ...`);
-	await bot.destroy();
+	console.log(`[OS]: Received signal ${signal}, shutting down ...`);
+	await bot.kill();
 	process.exit(0);
 }
 
@@ -27,8 +30,10 @@ const bot = new LunaClient({
 		MessageContent,
 		GuildMessageReactions,
 		GuildMembers,
+		DirectMessages,
 	],
-	partials: [Partials.Reaction, Partials.Message],
+	// Partials.Channel is required for DMs when the DM channel is not cached (discord.js docs).
+	partials: [Partials.Channel, Partials.Reaction, Partials.Message],
 	shards: [0],
 	shardCount: 1,
 	presence: {

@@ -7,7 +7,7 @@ import {
 import { config } from "@config";
 
 export async function set(
-	client: Luna.Client.Class,
+	client: Luna.Client.Bot,
 	int: ChatInputCommandInteraction,
 ): Promise<void> {
 	await int.deferReply({ flags: [MessageFlags.Ephemeral], withResponse: true });

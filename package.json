@@ -4,7 +4,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.4.8",
 		"@types/bun": "1.3.11",
-		"typescript": "5.9.3"
+		"typescript": "6.0.2"
 	},
 	"workspaces": [
 		"./src/apps/*",
@@ -23,6 +23,6 @@
 		"db:prod": "cd src/packages/database && bun db:generate:prod && bun db:migrate:prod deploy"
 	},
 	"dependencies": {
-		"@kyvrixon/utils": "1.0.10"
+		"@kyvrixon/utils": "1.0.11"
 	}
 }

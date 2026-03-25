@@ -4,7 +4,7 @@ import { ip } from "elysia-ip";
 import { rateLimit } from "elysia-rate-limit";
 // import chalk from "../../../../node_modules/chalk";
 import { startTimePlugin } from "../core/plugins/startTime";
-import { initPrismaClient } from "src/packages/database/structures/PrismaClient";
+import { initPrismaClient } from "../../../packages/database/structures/PrismaClient";
 
 // const statusColour = (s: number) =>
 // 	s >= 500
