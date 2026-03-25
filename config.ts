@@ -1,8 +1,8 @@
 const ai_system_prompt = await Bun.file(
-	`./ai/prompts/bot/personas/kawaii.txt`,
+	`./files/ai/prompts/bot/personas/luna.txt`,
 ).text();
 const ai_system_rules = await Bun.file(
-	"./ai/prompts/bot/SYSTEM_RULES.txt",
+	"./files/ai/prompts/bot/SYSTEM_RULES.txt",
 ).text();
 
 export const config = {
