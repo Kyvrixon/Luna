@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json .
 COPY bunfig.toml .
 COPY src/packages/database/package.json src/packages/database/
+COPY src/packages/ai/package.json src/packages/ai/
 COPY src/apps/bot/package.json ./src/apps/bot/
 RUN bun install --production
 
