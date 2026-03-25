@@ -1,15 +1,23 @@
-# Not in image
+#################################
+#          Not in image         #
+#################################
+# env
 .env*
-assets/*
-files/*
-src/packages/database/.generated/*
-node_modules/*
+# deps / generated
+node_modules/
+src/packages/database/.generated/
+# assets + files (ignore all by default)
+assets/**
+files/**
 
-###########################################################################
-
-# Override
+#################################
+#           overrides           #
+#################################
+# allow prod env
 !.env.prod
-!files/.gitkeep
+# keep empty dirs
 !assets/.gitkeep
-!files/ai/*
-!src/packages/database/.generated/migrations/*
+!files/.gitkeep
+# allow everything inside files (needed for runtime)
+!files/**
+!src/packages/database/.generated/migrations/**
