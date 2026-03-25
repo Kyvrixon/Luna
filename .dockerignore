@@ -11,4 +11,5 @@ node_modules/*
 !.env.prod
 !files/.gitkeep
 !assets/.gitkeep
+!files/ai/*
 !src/packages/database/.generated/migrations/*
