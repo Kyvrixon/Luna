@@ -1,7 +1,7 @@
 import { DiscordEvent } from "@kyvrixon/utils";
 import { ActivityType } from "discord.js";
 
-function updatePresence(c: Luna.Client.Class): void {
+function updatePresence(c: Luna.Client.Bot): void {
 	void c.user.setPresence({
 		status: "online",
 		activities: [
@@ -19,7 +19,7 @@ export default new DiscordEvent({
 	type: "client",
 	name: "clientReady",
 	once: true,
-	async method(client: Luna.Client.Class) {
+	async method(client: Luna.Client.Bot) {
 		client.registerCommands();
 
 		updatePresence(client);

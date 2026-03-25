@@ -1,9 +1,10 @@
 assets/*
 files/*
-src/packages/database/.generated/*
+src/packages/database/.generated/
 !files/.gitkeep
+!files/ai/
 !assets/.gitkeep
-!src/packages/database/.generated/migrations/*
+!src/packages/database/.generated/migrations/
 .env*
 !.env.example
 !.env

@@ -6,7 +6,7 @@ export default new DiscordEvent({
 	type: "client",
 	name: "messageCreate",
 	once: false,
-	async method(client: Luna.Client.Class, message) {
+	async method(client: Luna.Client.Bot, message) {
 		if (!message.guild || message.author.bot || message.webhookId) return;
 
 		const authorAfk = await client.db.afk.findFirst({

@@ -13,24 +13,34 @@ import {
 } from "discord.js";
 
 // biome-ignore format: keep layout
-const emojiOptions = [
-	"🗝️","🍇","💀","🍊","❤️",
-	"🌵","🫐","🍋","🧱","⚫",
-	"🦋","🥕","🧊","🍓","🔵",
-	"🌸","🥝","🍌","🪨","🔴",
-	"🐸","🪻","🥥","⭐","⚪",
+const emojiSets = [
+		// Fruits
+		["🍒", "🍍", "🥥", "🍎", "🫐", "🍋", "🥭", "🍓", "🍐"],
+		// Vegetables
+		["🥕", "🌽", "🥦", "🫑", "🍆", "🥒", "🧄", "🧅", "🥔"],
+		// Sweets
+		["🍫", "🍩", "🍪", "🧁", "🍰", "🍬", "🍭", "🍯", "🥧"],
+		// Drinks
+		["☕", "🍵", "🥤", "🧃", "🍶", "🍺", "🍷", "🥛", "🍹"],
+		// Animals
+		["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨"],
 ];
+const buttonsPerRow = 3;
 
-function generateOption(): (typeof emojiOptions)[number] {
+function getRandomEmojiSet(): (typeof emojiSets)[number] {
+	// biome-ignore lint/style/noNonNullAssertion: within range
+	return emojiSets[Math.floor(Math.random() * emojiSets.length)]!;
+}
+function generateOption(arr: (typeof emojiSets)[number]) {
 	// biome-ignore lint/style/noNonNullAssertion: Exists
-	return emojiOptions[Math.floor(Math.random() * emojiOptions.length)]!;
+	return arr[Math.floor(Math.random() * arr.length)]!;
 }
 
 export default new DiscordEvent({
 	type: "custom",
 	once: false,
 	name: "int-button",
-	async method(client: Luna.Client.Class, interaction) {
+	async method(client: Luna.Client.Bot, interaction) {
 		const cid = interaction.customId;
 		if (cid !== "verify-panel-button") return;
 
@@ -59,9 +69,10 @@ export default new DiscordEvent({
 			});
 		}
 
-		const correctEmojiGenerated = generateOption();
+		const chosenSet = getRandomEmojiSet();
+		const correctEmojiGenerated = generateOption(chosenSet);
 		const choisesArr =
-			config.utils.shuffle<(typeof emojiOptions)[number]>(emojiOptions);
+			config.utils.shuffle<(typeof chosenSet)[number]>(chosenSet);
 
 		const buttonsArr: ButtonBuilder[] = [];
 		for (const entry of choisesArr) {
@@ -82,7 +93,7 @@ export default new DiscordEvent({
 					)
 					.addTextDisplayComponents(
 						new TextDisplayBuilder().setContent(
-							`Click the button with this emoji: ${correctEmojiGenerated}. You have 30 seconds`,
+							`Click the button with this emoji: ${correctEmojiGenerated}.\nYou have 30 seconds`,
 						),
 					)
 					.addSeparatorComponents(
@@ -92,10 +103,13 @@ export default new DiscordEvent({
 					)
 					.addActionRowComponents(
 						...Array.from(
-							{ length: Math.ceil(buttonsArr.length / 5) },
+							{ length: Math.ceil(buttonsArr.length / buttonsPerRow) },
 							(_, i) =>
 								new ActionRowBuilder<ButtonBuilder>().setComponents(
-									buttonsArr.slice(i * 5, i * 5 + 5),
+									buttonsArr.slice(
+										i * buttonsPerRow,
+										i * buttonsPerRow + buttonsPerRow,
+									),
 								),
 						),
 					),

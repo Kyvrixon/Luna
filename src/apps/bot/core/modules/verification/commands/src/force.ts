@@ -7,7 +7,7 @@ import {
 } from "discord.js";
 
 export async function force(
-	client: Luna.Client.Class,
+	client: Luna.Client.Bot,
 	int: ChatInputCommandInteraction,
 ): Promise<void> {
 	const user = int.options.getUser("target", true);
@@ -75,8 +75,8 @@ export async function force(
 	}
 
 	await member.roles.add("1376430036826984448");
-	
-	// TODO [Modules#quarantine]: remove quarantine role here	
+
+	// TODO [Modules#quarantine]: remove quarantine role here
 
 	return void int.reply({
 		flags: [MessageFlags.IsComponentsV2],

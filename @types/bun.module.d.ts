@@ -8,6 +8,7 @@ declare module "bun" {
 		REGISTER_COMMANDS: "yes" | "no" | undefined;
 		REDIS_URL: string;
 		ISDEV: "1" | undefined;
+		AI_API_KEY: string;
 	}
 }
 

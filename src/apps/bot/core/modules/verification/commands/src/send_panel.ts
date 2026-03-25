@@ -12,7 +12,7 @@ import {
 } from "discord.js";
 
 export async function send_panel(
-	client: Luna.Client.Class,
+	client: Luna.Client.Bot,
 	int: ChatInputCommandInteraction,
 ): Promise<void> {
 	const channel = client.mainGuild.channels.cache.get("1484791613728362637");
