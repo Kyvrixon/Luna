@@ -6,7 +6,7 @@ services:
 
   dragonfly:
     container_name: dragonfly
-    image: ghcr.io/dragonflydb/dragonfly:v1.37.0
+    image: ghcr.io/dragonflydb/dragonfly:v1.37.2
     restart: on-failure:3
     expose:
       - "6379"
