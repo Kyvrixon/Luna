@@ -23,6 +23,6 @@
 		"db:prod": "cd src/packages/database && bun db:generate:prod && bun db:migrate:prod deploy"
 	},
 	"dependencies": {
-		"@kyvrixon/utils": "1.0.12"
+		"@kyvrixon/utils": "1.4.0"
 	}
 }
